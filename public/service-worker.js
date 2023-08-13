@@ -9,10 +9,6 @@ self.addEventListener('push', event => {
             data: {
                 url: data.url
             },
-            actions: [{
-                action: data.actionURL,
-                title: data.actionTitle,
-            }]
         })
     );
 });

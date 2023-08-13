@@ -56,6 +56,8 @@ on(['webpush::unsubscribe' => function() {
 
                 let permission = await Notification.requestPermission();
 
+                alert(permission);
+
                 if (permission === 'granted') {
                     await this.subscribeUserToPush();
                 } else {

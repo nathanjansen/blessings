@@ -24,9 +24,13 @@
 
     <hr>
 
-    <x-blessing.count
-        :count="$blessingCount"
-        class="px-6 text-gray-400 text-sm"
-    />
+    <div class="flex justify-between px-6 items-center">
+        <x-blessing.count
+            :count="$blessingCount"
+            class="text-gray-400 text-sm"
+        />
+
+        <small class="text-gray-400 text-xs">{{ config('nativephp.version') }}</small>
+    </div>
 
 </div>

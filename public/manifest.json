@@ -1,0 +1,12 @@
+{
+    "short_name": "blessings",
+    "name": "Blessings",
+    "icons": [
+
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#22c55d"
+}

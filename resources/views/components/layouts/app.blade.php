@@ -14,11 +14,16 @@
         {!! $meta !!}
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <script>
+            window.vapidPublicKey = '{{ config('webpush.vapid.public_key') }}';
+        </script>
     </head>
     <body @class([
         $bodyClass,
         'bg-stone-100' => ! $bodyClass,
     ])>
+
         {{ $slot }}
     </body>
 </html>

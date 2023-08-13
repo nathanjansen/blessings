@@ -17,7 +17,15 @@ class NativeAppServiceProvider
      */
     public function boot(): void
     {
-        Menubar::create();
+        Menubar::create()
+            ->withContextMenu(
+                Menu::new()
+                    ->label(config('app.name'))
+                    ->separator()
+                    ->link('https://grace.uteq.nl', 'Over ' . config('app.name'))
+                    ->separator()
+                    ->quit()
+            );
 
 //        Menu::new()
 //            ->appMenu()
@@ -38,26 +46,24 @@ class NativeAppServiceProvider
                 ->height(800);
         }
 
-        /**
-            Dock::menu(
-                Menu::new()
-                    ->event(DockItemClicked::class, 'Settings')
-                    ->submenu('Help',
-                        Menu::new()
-                            ->event(DockItemClicked::class, 'About')
-                            ->event(DockItemClicked::class, 'Learn More…')
-                    )
-            );
+//        Dock::menu(
+//            Menu::new()
+//                ->event(DockItemClicked::class, 'Settings')
+//                ->submenu('Help',
+//                    Menu::new()
+//                        ->event(DockItemClicked::class, 'About')
+//                        ->event(DockItemClicked::class, 'Learn More…')
+//                )
+//        );
 
-            ContextMenu::register(
-                Menu::new()
-                    ->event(ContextMenuClicked::class, 'Do something')
-            );
+//        ContextMenu::register(
+//            Menu::new()
+//                ->event(ContextMenuClicked::class, 'Do something')
+//        );
 
-            GlobalShortcut::new()
-                ->key('CmdOrCtrl+Shift+I')
-                ->event(ShortcutPressed::class)
-                ->register();
-        */
+//        GlobalShortcut::new()
+//            ->key('CmdOrCtrl+Shift+I')
+//            ->event(ShortcutPressed::class)
+//            ->register();
     }
 }

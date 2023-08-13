@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\BlessingIndex::class)
     ->name('blessings.index');
+
+Route::get('/web', \App\Livewire\Web\BlessingIndex::class)
+    ->name('blessings.index');

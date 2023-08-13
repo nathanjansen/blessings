@@ -2,11 +2,9 @@
 
 use Livewire\Livewire;
 
-test('rendes succesfuly', function () {
-
+test('renders succesfuly', function () {
     Livewire::test(\App\Livewire\BlessingIndex::class)
         ->assertStatus(200);
-
 });
 
 test('can add blessing', function() {

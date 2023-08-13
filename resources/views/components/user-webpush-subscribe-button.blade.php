@@ -54,15 +54,15 @@ on(['webpush::unsubscribe' => function() {
 
             async askPushPermission() {
 
-                let permission = await Notification.requestPermission();
+                this.loading = true;
 
-                alert(permission);
+{{--                let permission = await Notification.requestPermission();--}}
 
-                if (permission === 'granted') {
+{{--                if (permission === 'granted') {--}}
                     await this.subscribeUserToPush();
-                } else {
-                    alert('Permission denied');
-                }
+{{--                } else {--}}
+{{--                    alert('Permission denied');--}}
+{{--                }--}}
 
                 this.loading = false;
             },

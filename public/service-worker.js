@@ -5,17 +5,25 @@ self.addEventListener('push', event => {
         self.registration.showNotification(data.title, {
             body: data.body,
             icon: data.icon,
+            tag: data.tag,
             data: {
                 url: data.url
-            }
+            },
+            actions: [{
+                action: data.actionURL,
+                title: data.actionTitle,
+            }]
         })
     );
 });
 
 self.addEventListener('notificationclick', event => {
+
     const notification = event.notification;
     const url = notification.data.url;
+
     notification.close();
+
     event.waitUntil(
         clients.openWindow(url)
     );

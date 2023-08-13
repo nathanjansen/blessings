@@ -58,6 +58,8 @@ on(['webpush::unsubscribe' => function() {
 
                 if (permission === 'granted') {
                     await this.subscribeUserToPush();
+                } else {
+                    alert('Permission denied');
                 }
 
                 this.loading = false;

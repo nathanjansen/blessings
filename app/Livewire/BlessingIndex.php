@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Actions\CreateBlessing;
 use App\Models\Blessing;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
@@ -13,6 +14,7 @@ use Livewire\Component;
 
 /**
  * @property Carbon $carbonDate
+ * @property User $user
  */
 class BlessingIndex extends Component
 {
@@ -31,6 +33,12 @@ class BlessingIndex extends Component
         return now()->parse($this->date);
     }
 
+    #[Computed]
+    public function user(): User
+    {
+        return auth()->user();
+    }
+
     function nextDay()
     {
         if (! $this->hasNextDay()) return;
@@ -45,7 +53,7 @@ class BlessingIndex extends Component
 
     function addBlessing(CreateBlessing $creator)
     {
-        $creator($this->description, $this->date);
+        $creator(user: $this->user, description: $this->description, date: $this->date);
 
         $this->description = '';
     }

@@ -40,7 +40,7 @@
             class="text-gray-400 text-sm"
         />
 
-        <small class="text-gray-400 text-xs">{{ config('nativephp.version') }}</small>
+        <small class="text-gray-400 text-xs">{{ config('app.version') }}</small>
     </div>
 
 </div>

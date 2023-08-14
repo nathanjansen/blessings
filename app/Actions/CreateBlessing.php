@@ -3,10 +3,12 @@
 namespace App\Actions;
 
 use App\Models\Blessing;
+use App\Models\User;
 
 class CreateBlessing
 {
     public function __invoke(
+        User $user,
         string $description,
         string $date,
     ): ?Blessing {
@@ -15,6 +17,7 @@ class CreateBlessing
         }
 
         return Blessing::create([
+            'user_id' => $user->id,
             'description' => $description,
             'date' => $date,
         ]);

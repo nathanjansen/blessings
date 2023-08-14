@@ -17,4 +17,5 @@ Route::get('/native', \App\Livewire\BlessingIndex::class)
     ->name('blessings.index');
 
 Route::get('/', \App\Livewire\Web\BlessingIndex::class)
+    ->middleware(['web', 'auth'])
     ->name('web.blessings.index');

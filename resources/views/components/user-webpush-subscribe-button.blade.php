@@ -1,27 +1,16 @@
-@props(['content', 'attributes'])
-
 <?php
 
-use function Livewire\Volt\{computed, state, on};
+use function Livewire\Volt\{computed, on};
 use App\Notifications\WebpushSubscribed;
 use App\Models\User;
 
-state('content')->reactive();
-
-$user = computed(function() {
-    /** @var User $user */
-    $user = User::query()->firstWhere('email', 'test@test.nl') ?? User::query()->firstOrNew([
+$user = computed(fn() => User::query()->firstWhere('email', 'test@test.nl')
+    ?? User::query()->firstOrCreate([
         'name' => 'John Doe',
         'email' => 'test@test.nl',
         'password' => '',
-    ]);
-
-    if (! $user->id) {
-        $user->save();
-    }
-
-    return $user;
-});
+    ])
+);
 
 on(['webpush::subscribe' => function($subscription) {
     $this->user->updatePushSubscription(
@@ -46,50 +35,51 @@ on(['webpush::unsubscribe' => function() {
 
 ?>
 
-<button {{ $attributes }}>
-    @volt
-    <span
-        x-data="{
-            loading: false,
+<button
+    {{ $attributes }}
+    x-data="{
+        loading: false,
 
-            async askPushPermission() {
+        async askPushPermission() {
 
-                this.loading = true;
+            this.loading = true;
 
-                let permission = await Notification.requestPermission();
+            let permission = await Notification.requestPermission();
 
-                if (permission === 'granted' || permission === 'default') {
-                    await this.subscribeUserToPush();
-                } else {
-                    alert('Permission denied ' + permission);
-                }
-
-                this.loading = false;
-            },
-
-            async subscribeUserToPush() {
-                let registration = await navigator.serviceWorker.ready;
-
-                if (! registration) {
-                    return;
-                }
-
-                let subscription = await registration.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: window.vapidPublicKey
-                });
-
-                if (! subscription) {
-                    return;
-                }
-
-                await Livewire.dispatch('webpush::subscribe', {subscription: subscription});
+            if (permission === 'granted' || permission === 'default') {
+                await this.subscribeUserToPush();
+            } else {
+                alert('Permission denied ' + permission);
             }
-        }"
-        x-on:click="askPushPermission; loading = true"
-        :class="{ 'opacity-50': loading }"
-    >
-        {{ $content ?? 'test' }}
-    </span>
-    @endvolt
+
+            await new Promise(r => setTimeout(r, 300));
+
+            this.loading = false;
+        },
+
+        async subscribeUserToPush() {
+            let registration = await navigator.serviceWorker.ready;
+
+            if (! registration) {
+                return;
+            }
+
+            let subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: window.vapidPublicKey
+            });
+
+            if (! subscription) {
+                return;
+            }
+
+            await Livewire.dispatch('webpush::subscribe', {subscription: subscription});
+        }
+    }"
+    x-on:click="askPushPermission; loading = true"
+    :class="{ 'opacity-50': loading }"
+>
+    @volt <template></template> @endvolt
+
+    {{ $slot }}
 </button>

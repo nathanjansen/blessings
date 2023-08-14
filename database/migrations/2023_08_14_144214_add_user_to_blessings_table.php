@@ -14,7 +14,9 @@ return new class extends Migration
         \App\Models\Blessing::query()->delete();
 
         Schema::table('blessings', function (Blueprint $table) {
-            $table->integer('user_id');
+            $table->after('id', function (Blueprint $table) {
+                $table->integer('user_id');
+            });
         });
     }
 

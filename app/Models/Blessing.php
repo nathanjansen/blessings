@@ -18,7 +18,11 @@ class Blessing extends Model
 
     public static function booted()
     {
-        static::addGlobalScope(fn (Builder $query) => $query->where('user_id', auth()->user()->id));
+        if (app()->runningInConsole()) {
+            return;
+        }
+
+        static::addGlobalScope(fn (Builder $query) => $query->where('user_id', auth()->user()?->id));
     }
 
     public static function getDate($date)

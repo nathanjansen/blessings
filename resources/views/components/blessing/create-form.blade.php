@@ -5,7 +5,7 @@
             x-ref="description"
             wire:model="description"
             placeholder="Ik ben dankbaar voor..."
-            class="w-full focus:outline-none focus:pl-1 animate-pulse bg-stone-100"
+            class="w-full focus:outline-none focus:pl-1 animate-pulse"
             x-on:focusout="$wire.addBlessing()"
             :class="{ 'pl-1' : $refs.description.value.length === 0 }"
         >

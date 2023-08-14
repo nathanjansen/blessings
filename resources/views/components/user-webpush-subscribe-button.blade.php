@@ -4,13 +4,7 @@ use function Livewire\Volt\{computed, on};
 use App\Notifications\WebpushSubscribed;
 use App\Models\User;
 
-$user = computed(fn() => User::query()->firstWhere('email', 'test@test.nl')
-    ?? User::query()->firstOrCreate([
-        'name' => 'John Doe',
-        'email' => 'test@test.nl',
-        'password' => '',
-    ])
-);
+$user = computed(fn() => auth()->user());
 
 on(['webpush::subscribe' => function($subscription) {
     $this->user->updatePushSubscription(

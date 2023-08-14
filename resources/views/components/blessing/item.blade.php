@@ -8,7 +8,7 @@
     <div class="ml-2">
         <button
             type="button"
-            class="transition transition-all opacity-0 group-hover:opacity-100 rounded-full w-6 h-6 active:ring-2 ring-red-500 text-red-500"
+            class="transition transition-all opacity-0 group-hover:opacity-100 rounded-full w-6 h-6 hover:ring-2 hover:shadow-md active:bg-red-500 active:text-white ring-red-500 text-red-500"
             wire:click="remove({{ $blessing->id }})"
         >
             &cross;

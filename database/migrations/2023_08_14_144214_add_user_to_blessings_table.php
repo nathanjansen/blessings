@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::table('blessings', function (Blueprint $table) {
             $table->after('id', function (Blueprint $table) {
-                $table->integer('user_id');
+                $table->integer('user_id')->unsigned();
             });
         });
     }

@@ -1,5 +1,3 @@
-<div class="max-w-2xl mx-auto">
-    <div class="max-w-2xl mx-auto">
-        <livewire:blessing-index />
-    </div>
+<div class="max-w-4xl mx-auto">
+    <livewire:blessing-index />
 </div>

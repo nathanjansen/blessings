@@ -14,8 +14,8 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0@beta",
         "livewire/volt": "^1.0@beta",
-        "minishlink/web-push": "^8.0",
-        "nativephp/electron": "^0.3.3"
+        "nativephp/electron": "^0.3.3",
+        "uteq/convey": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -29,6 +29,12 @@
         "spatie/laravel-ignition": "^2.0",
         "spatie/laravel-ray": "^1.32"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../convey"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
@@ -70,6 +76,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

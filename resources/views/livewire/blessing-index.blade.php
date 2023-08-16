@@ -21,7 +21,7 @@
             </x-slot:before>
         </x-blessing.list>
 
-        <div class="flex justify-between px-6">
+        <div class="flex gap-4 justify-between px-6">
             <x-daily-verse :day="$carbonDate" />
 
             <div>

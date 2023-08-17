@@ -4,7 +4,7 @@
     "icons": [
 
     ],
-    "start_url": "/web",
+    "start_url": "/",
     "background_color": "#ffffff",
     "display": "standalone",
     "scope": "/",

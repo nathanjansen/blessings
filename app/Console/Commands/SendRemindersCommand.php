@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\Reminder;
+use App\Notifications\Reminder;
 use App\Models\User;
 use Illuminate\Console\Command;
 

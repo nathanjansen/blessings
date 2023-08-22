@@ -45,10 +45,10 @@ class Reminder extends Notification
     public function toWebPush(object $notifiable, $notification = null): WebPushMessage
     {
         return (new WebPushMessage())
-            ->title('Approved!')
+            ->title('Het is weer tijd om je zegeningen op te schrijven.')
 //            ->icon('/approved-icon.png')
-            ->body('Your account was approved!')
-//            ->action('View account', 'view_account')
+            ->body('Wat voor goeds heeft de Heer vandaag voor jou gedaan?')
+            ->action('Zegening opschrijven', config('app.url'))
             ->options(['TTL' => 1000]);
     }
 

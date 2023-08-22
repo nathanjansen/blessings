@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
@@ -26,7 +27,16 @@ class Reminder extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database', WebPushChannel::class];
+        return ['database', 'mail', WebPushChannel::class];
+    }
+
+    public function toMail(object $notifiable, $notification = null): MailMessage
+    {
+        return (new MailMessage)
+            ->greeting("Hej $notifiable->name! Het is weer tijd om je zegeningen op te schrijven.")
+            ->line('Wat voor goeds heeft de Heer vandaag voor jou gedaan?')
+            ->action('Zegening opschrijven', config('app.url'))
+            ->line('Gods zegen!');
     }
 
     /**

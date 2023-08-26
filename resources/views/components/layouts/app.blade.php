@@ -21,7 +21,7 @@
     </head>
     <body @class([
         $bodyClass,
-        'bg-white md:bg-stone-100' => ! $bodyClass,
+        'bg-white' => ! $bodyClass,
     ])>
         <div class="h-screen flex flex-col">
 
@@ -31,7 +31,7 @@
             </header>
             @endif
 
-            <div class="flex-1 bg-white md:bg-stone-100 overflow-auto relative">
+            <div class="flex-1 bg-white overflow-auto relative">
                 <div class="pb-20">
                     {{ $slot }}
                 </div>
@@ -40,7 +40,7 @@
             </div>
 
             @if ($footer ?? null)
-            <footer {{ $footer->attributes }}>
+            <footer {{ $footer->attributes->class(['max-w-4xl px-11 w-full mx-auto']) }}>
                 {!! $footer !!}
             </footer>
             @endif

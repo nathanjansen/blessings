@@ -4,12 +4,7 @@
 
 use App\Models\Verse;
 
-$startDate = now()->parse('2023-01-01');
-$dateDiff = $startDate->diffInDays($day);
-
-$verseId = $dateDiff % 10;
-
-$verse = Verse::find($verseId + 1);
+$verse = Verse::whereDay($day);
 
 ?>
 

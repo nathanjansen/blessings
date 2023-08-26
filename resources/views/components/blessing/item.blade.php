@@ -1,5 +1,5 @@
 <li {{ $attributes }}>
-    <x-icons.face-smile class="w-4 h-4 shrink-0 text-green-500 mt-1 {{ $iconClass ?? null }}" />
+    <x-icons.face-smile class="w-4 h-4 relative -top-0.5 shrink-0 text-green-500 mt-1 {{ $iconClass ?? null }}" />
 
     <div class="border-[#EEE] border-b flex justify-between w-full gap-2 items-start w-full py-3">
         <div class="{{ $descriptionClass ?? null }}">

@@ -1,6 +1,8 @@
 @props([
     'title' => config('app.name'),
     'bodyClass' => null,
+    'header' => null,
+    'footer' => null,
     'meta' => null,
 ])
 
@@ -19,8 +21,30 @@
     </head>
     <body @class([
         $bodyClass,
-        'bg-stone-100' => ! $bodyClass,
+        'bg-white md:bg-stone-100' => ! $bodyClass,
     ])>
-        {{ $slot }}
+        <div class="h-screen flex flex-col">
+
+            @if ($header ?? null)
+            <header class="flex h-10 bg-white">
+                {!! $header !!}
+            </header>
+            @endif
+
+            <div class="flex-1 bg-white md:bg-stone-100 overflow-auto relative">
+                <div class="pb-20">
+                    {{ $slot }}
+                </div>
+
+                <div class="h-20 bg-gradient-to-t from-white w-full fixed bottom-10 left-0"></div>
+            </div>
+
+            @if ($footer ?? null)
+            <footer {{ $footer->attributes }}>
+                {!! $footer !!}
+            </footer>
+            @endif
+        </div>
+
     </body>
 </html>

@@ -36,13 +36,13 @@
         </div>
     </div>
 
-    <div class="flex justify-between px-6 items-center">
+    <x-slot:footer class="flex justify-between h-10 px-6 items-center">
         <x-blessing.count
             :count="$blessingCount"
             class="text-gray-400 text-sm"
         />
 
         <small class="text-gray-400 text-xs">{{ config('app.version') }}</small>
-    </div>
+    </x-slot:footer>
 
 </div>

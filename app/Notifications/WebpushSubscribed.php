@@ -32,7 +32,7 @@ class WebpushSubscribed extends Notification
             ->title('Notificaties ingeschakeld')
 //            ->icon('/approved-icon.png')
             ->body('Vanaf nu ontvang je notificaties')
-            ->action('Start hier', 'web.blessings.index')
+//            ->action('Start hier', 'index')
             ->options(['TTL' => 1000]);
     }
 

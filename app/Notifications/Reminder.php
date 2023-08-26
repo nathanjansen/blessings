@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Verse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -32,11 +33,14 @@ class Reminder extends Notification
 
     public function toMail(object $notifiable, $notification = null): MailMessage
     {
+        $verse = Verse::today();
+
         return (new MailMessage)
-            ->greeting("Hej $notifiable->name! Het is weer tijd om je zegeningen op te schrijven.")
-            ->line('Wat voor goeds heeft de Heer vandaag voor jou gedaan?')
-            ->action('Zegening opschrijven', config('app.url'))
-            ->line('Gods zegen!');
+            ->greeting("Hej $notifiable->name!")
+            ->line('Sta je ook vandaag (weer) even stil bij je zegeningen. Waar mag jij vandaag dankbaar voor zijn?')
+            ->action('Vul je dankpunt(en) in', config('app.url'))
+            ->line($verse?->text)
+            ->salutation($verse?->verse);
     }
 
     /**
@@ -44,11 +48,13 @@ class Reminder extends Notification
      */
     public function toWebPush(object $notifiable, $notification = null): WebPushMessage
     {
+        $verse = Verse::today();
+
         return (new WebPushMessage())
-            ->title('Het is weer tijd om je zegeningen op te schrijven.')
+            ->title('Waar mag jij vandaag dankbaar voor zijn?')
 //            ->icon('/approved-icon.png')
-            ->body('Wat voor goeds heeft de Heer vandaag voor jou gedaan?')
-            ->action('Zegening opschrijven', config('app.url'))
+            ->body('Sta je ook vandaag (weer) even stil bij je zegeningen.')
+            ->action('Zegening opschrijven', 'index')
             ->options(['TTL' => 1000]);
     }
 

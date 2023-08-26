@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\Web\BlessingIndex::class)
     ->middleware(['web', 'auth'])
-    ->name('web.blessings.index');
+    ->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

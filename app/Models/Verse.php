@@ -52,4 +52,19 @@ class Verse extends Model
             'verse' => '2 Korintiërs 9:11',
         ]
     ];
+
+    public static function today()
+    {
+        return Verse::whereDay(now());
+    }
+
+    public static function whereDay(string $day)
+    {
+        $startDate = now()->parse('2023-01-01');
+        $dateDiff = $startDate->diffInDays(now());
+
+        $verseId = $dateDiff % 10;
+
+        return Verse::find($verseId + 1);
+    }
 }

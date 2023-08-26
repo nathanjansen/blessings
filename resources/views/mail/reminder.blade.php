@@ -1,12 +1,11 @@
 <x-mail::message>
-# Hej {{ $user->name }}! Het is weer tijd om je zegeningen op te schrijven.
+# Hallo {{ $user->name }}!
 
-Wat voor goeds heeft de Heer vandaag voor jou gedaan?
+Sta je ook vandaag (weer) even stil bij je zegeningen.
+Waar mag jij vandaag dankbaar voor zijn?
 
 <x-mail::button :url="$url">
-Zegening opschrijven
+Vul je dankpunt(en) in
 </x-mail::button>
 
-God zegen!<br>
-{{ config('app.name') }}
 </x-mail::message>

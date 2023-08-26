@@ -26,7 +26,7 @@
         <div class="h-screen flex flex-col">
 
             @if ($header ?? null)
-            <header class="flex h-10 bg-white">
+            <header {{ $header->attributes?->class('flex h-10 bg-white max-w-3xl') }}>
                 {!! $header !!}
             </header>
             @endif
@@ -36,7 +36,7 @@
                     {{ $slot }}
                 </div>
 
-                <div class="h-20 bg-gradient-to-t from-white w-full fixed bottom-10 left-0"></div>
+{{--                <div class="h-20 bg-gradient-to-t from-white w-full fixed bottom-10 left-0"></div>--}}
             </div>
 
             @if ($footer ?? null)

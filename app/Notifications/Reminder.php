@@ -6,6 +6,7 @@ use App\Models\Verse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
@@ -39,8 +40,9 @@ class Reminder extends Notification
             ->greeting("Hej $notifiable->name!")
             ->line('Sta je ook vandaag (weer) even stil bij je zegeningen. Waar mag jij vandaag dankbaar voor zijn?')
             ->action('Vul je dankpunt(en) in', config('app.url'))
-            ->line($verse?->text)
-            ->salutation($verse?->verse);
+            ->line(new HtmlString('<p class="verse">' . $verse?->text .'</p>'))
+            ->line(new HtmlString('<p class="verse-number">' . $verse?->verse .'</p>'))
+            ->salutation(' ');
     }
 
     /**

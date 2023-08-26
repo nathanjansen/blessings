@@ -18,6 +18,12 @@ Route::get('/', \App\Livewire\Web\BlessingIndex::class)
     ->middleware(['web', 'auth'])
     ->name('index');
 
+Route::get('/mail', function() {
+    $user = \App\Models\User::query()->first();
+
+    return (new \App\Notifications\Reminder())->toMail($user);
+})->middleware(['web', 'auth'])->name('mail');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

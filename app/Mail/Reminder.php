@@ -22,7 +22,7 @@ class Reminder extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reminder',
+            subject: 'Waar mag jij vandaag dankbaar voor zijn?',
         );
     }
 

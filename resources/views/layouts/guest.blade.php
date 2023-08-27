@@ -10,6 +10,7 @@
         <link rel="manifest" href="manifest.json">
 
         <!-- Favicon -->
+        <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="/icons/logo-512x512.png">
         <link rel="icon" type="image/png" href="/icons/logo-512x512.png" />
 
         <!-- Fonts -->

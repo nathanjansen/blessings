@@ -12,6 +12,7 @@
         <title>{{ $title }}</title>
 
         <link rel="manifest" href="manifest.json">
+        <link rel="icon" type="image/png" href="/icons/logo-512x512.png" />
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

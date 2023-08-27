@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <x-slot:footer class="flex justify-between h-10 px-6 items-center">
+    <x-slot:footer class="flex justify-between h-20 px-6 items-center">
         <x-blessing.count
             :count="$blessingCount"
             class="text-gray-400 text-sm"

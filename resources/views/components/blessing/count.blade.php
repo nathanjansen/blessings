@@ -1,3 +1,3 @@
 <div {{ $attributes }}>
-    {{ __('Totaal :count zegeningen', ['count' => $count]) }}
+    {!! __('Totaal <span class="text-primary-500">:count zegeningen</span>', ['count' => $count]) !!}
 </div>

@@ -33,6 +33,11 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
+            <div class="p-4 sm:p-0 mt-4">
+                <small class="text-gray-400 text-xs">v{{ config('app.version') }}</small>
+            </div>
         </div>
+
     </div>
 </x-layouts.app>

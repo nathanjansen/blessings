@@ -61,7 +61,7 @@ class Verse extends Model
     public static function whereDay(string $day)
     {
         $startDate = now()->parse('2023-01-01');
-        $dateDiff = $startDate->diffInDays(now());
+        $dateDiff = $startDate->diffInDays($day);
 
         $verseId = $dateDiff % 10;
 

@@ -6,6 +6,8 @@ use App\Models\Verse;
 
 $verse = Verse::whereDay($day);
 
+ray($verse, $day);
+
 ?>
 
 <div {{ $attributes->class(['flex flex-col gap-2']) }}>

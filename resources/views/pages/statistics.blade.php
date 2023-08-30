@@ -8,12 +8,16 @@ $blessingCount = \App\Models\Blessing::count();
 
 <x-layouts.app class="max-w-4xl mx-auto">
 
-    <h1 class="text-5xl font-bold mb-4">Statistieken</h1>
+    <div class="w-full flex flex-col gap-6 bg-white rounded-lg p-4 pb-8">
 
-    <x-blessing.count
-        :count="$blessingCount"
-        class="text-black font-bold text-lg"
-    />
+        <h1 class="text-5xl font-bold mb-4">Statistieken</h1>
+
+        <x-blessing.count
+            :count="$blessingCount"
+            class="text-black font-bold text-lg"
+        />
+
+    </div>
 
 </x-layouts.app>
 

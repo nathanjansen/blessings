@@ -52,7 +52,6 @@ state(
         @volt
         <div
             class="mt-4"
-            wire:ignore
             x-data="{
                 values: @js($this->values),
                 chart: null,

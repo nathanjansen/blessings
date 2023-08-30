@@ -36,10 +36,6 @@ state(
 
 <x-layouts.app class="max-w-4xl mx-auto">
 
-    <x-slot:meta>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </x-slot:meta>
-
     <div class="w-full flex flex-col gap-6 bg-white rounded-lg p-4 pb-8">
 
         <h1 class="text-5xl font-bold mb-4">Statistieken</h1>

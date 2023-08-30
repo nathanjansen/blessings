@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Blessing extends Model
 {
@@ -29,6 +30,13 @@ class Blessing extends Model
     {
         return self::query()
             ->where('date', 'like', $date . '%')
+            ->get();
+    }
+
+    public static function amountPerWeek()
+    {
+        return self::selectRaw('WEEK(date) as week, COUNT(*) as count')
+            ->groupBy(DB::raw('WEEK(date)'))
             ->get();
     }
 }

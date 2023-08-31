@@ -171,7 +171,7 @@ $monthlyComparison = $thisMonthBlessings - $lastMonthBlessings;
             class="w-full"
         >
             <div class="font-light text-lg">Aantal zegeningen per week</div>
-            <canvas x-ref="canvas" class="rounded-lg bg-white p-8"></canvas>
+            <canvas x-ref="canvas" class="rounded-lg bg-white"></canvas>
         </div>
         @endvolt
 

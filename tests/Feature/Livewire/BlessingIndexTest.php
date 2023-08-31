@@ -1,67 +1,99 @@
 <?php
 
+use App\Actions\CreateBlessing;
+use App\Livewire\BlessingIndex;
+use App\Models\Blessing;
+use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Livewire;
+use function Pest\Laravel\actingAs;
 
-test('renders succesfuly', function () {
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+it('renders succesfuly', function () {
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    Livewire::test(BlessingIndex::class)
         ->assertStatus(200);
 });
 
-test('can add blessing', function() {
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+it('can add blessing', function () {
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    Livewire::test(BlessingIndex::class)
         ->set('description', 'My first blessing')
         ->call('addBlessing')
         ->assertSee('My first blessing');
 });
 
-test('can remove blessing', function() {
+it('can remove blessing', function () {
 
-    \App\Models\Blessing::truncate();
+    Blessing::truncate();
 
-    $blessing = app(\App\Actions\CreateBlessing::class)(
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    $blessing = app(CreateBlessing::class)(
+        $user,
         'My first blessing',
         now()->format('Y-m-d')
     );
 
-    $this->assertCount(1, \App\Models\Blessing::all());
+    $this->assertCount(1, Blessing::all());
 
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+    Livewire::test(BlessingIndex::class)
         ->call('remove', $blessing)
         ->assertDontSee('My first blessing');
 });
 
-test('can go to next day', function() {
+it('can go to next day', function () {
 
-    \App\Models\Blessing::truncate();
+    Blessing::truncate();
 
-    $blessing = app(\App\Actions\CreateBlessing::class)(
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    $blessing = app(CreateBlessing::class)(
+        $user,
         'My first blessing',
         now()->format('Y-m-d')
     );
 
-    $this->assertCount(1, \App\Models\Blessing::all());
+    $this->assertCount(1, Blessing::all());
 
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+    Livewire::test(BlessingIndex::class)
         ->call('remove', $blessing)
         ->assertDontSee('My first blessing');
 });
 
 
-test('cannot go to next day when the current day is today', function() {
+it('cannot go to next day when the current day is today', function () {
 
-    \Carbon\Carbon::setTestNow('2023-01-01');
+    Carbon::setTestNow('2023-01-01');
 
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    Livewire::test(BlessingIndex::class)
         ->set('date', now()->format('Y-m-d'))
         ->call('nextDay')
         ->assertSet('date', '2023-01-01');
 });
 
-test('can go to next day when the next day is before today', function() {
+it('can go to next day when the next day is before today', function () {
 
-    \Carbon\Carbon::setTestNow('2023-01-01');
+    Carbon::setTestNow('2023-01-01');
 
-    Livewire::test(\App\Livewire\BlessingIndex::class)
+    $user = User::factory()->create();
+
+    actingAs($user);
+
+    Livewire::test(BlessingIndex::class)
         ->set('date', now()->subDays(2)->format('Y-m-d'))
         ->call('nextDay')
         ->assertSet('date', '2022-12-31');

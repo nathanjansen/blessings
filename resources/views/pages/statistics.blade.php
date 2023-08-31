@@ -16,7 +16,7 @@ state(
     values: function () use ($labels) {
 
 
-        $stats = Blessing::amountPerWeek()
+        $stats = Blessing::weekly()
             ->mapWithKeys(fn($labels) => [$labels['week'] => $labels['count']]);
 
         unset($labels[0]);
@@ -32,7 +32,47 @@ state(
 
 ?>
 
-@php $blessingCount = Blessing::count(); @endphp
+@php
+
+$blessingCount = Blessing::count();
+$mostBlessedDay = Blessing::mostBlessedDay();
+
+// Get the date of the first blessing
+$firstBlessingDate = Blessing::min('date');
+
+// Calculate the total days from the first usage until now
+$totalDays = $firstBlessingDate ? now()->parse($firstBlessingDate)->diffInDays(now()) + 1 : 0;
+
+// Hoeveel blessings zijn er in totaal;
+$totalBlessings = Blessing::count();
+
+// Aantal blessings delen door aantal dagen = gemiddelde per dag;
+$averagePerDay = $totalDays > 0 ? $totalBlessings / $totalDays : 0;
+
+// Gemiddelde per dag x 7 = gemiddelde per week;
+$averagePerWeek = $averagePerDay * 7;
+
+// Gemiddelde per week x 52 delen door 12 = gemiddelde per maand;
+$averagePerMonth = ($averagePerWeek * 52) / 12;
+
+// Blessings for the most recent day
+$todayBlessings = Blessing::whereDate('date', now()->today())->count();
+$yesterdayBlessings = Blessing::whereDate('date', now()->yesterday())->count();
+
+// Blessings for the current week
+$thisWeekBlessings = Blessing::whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()])->count();
+$lastWeekBlessings = Blessing::whereBetween('date', [now()->subWeek()->startOfWeek(), now()->subWeek()->endOfWeek()])->count();
+
+// Blessings for the current month
+$thisMonthBlessings = Blessing::whereMonth('date', now()->month)->count();
+$lastMonthBlessings = Blessing::whereMonth('date', now()->subMonth()->month)->count();
+
+// Comparison
+$dailyComparison = $todayBlessings - $yesterdayBlessings;
+$weeklyComparison = $thisWeekBlessings - $lastWeekBlessings;
+$monthlyComparison = $thisMonthBlessings - $lastMonthBlessings;
+
+@endphp
 
 <x-layouts.app class="max-w-4xl mx-auto">
 
@@ -130,10 +170,66 @@ state(
             }"
             class="w-full"
         >
-            <div class="font-light">Aantal zegeningen per week</div>
+            <div class="font-light text-lg">Aantal zegeningen per week</div>
             <canvas x-ref="canvas" class="rounded-lg bg-white p-8"></canvas>
         </div>
         @endvolt
+
+        <h2 class="text-2xl font-bold">Gemiddelden</h2>
+
+        <div class="flex flex-col gap-4 text-lg max-w-3xl w-full">
+            <div class="flex items-center gap-2">
+                <div class="font-light w-40">Per dag</div>
+                <div class="font-bold flex gap-4 items-center">
+                    {{ number_format($averagePerDay, 2) }}
+                    <span>
+                    @if ($dailyComparison > 0)
+                        <span class="text-sm text-primary-500 font-normal">+{{ number_format($dailyComparison, 1) }}</span>
+                    @else
+                        <span class="text-sm font-normal opacity-50">{{ number_format($dailyComparison, 1) }}</span>
+                    @endif
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="font-light w-40">Per week</div>
+                <div class="font-bold flex gap-4 items-center">
+                    {{ number_format($averagePerWeek, 2) }}
+                    <span>
+                    @if ($weeklyComparison > 0)
+                            <span class="text-sm text-primary-500 font-normal">+{{ number_format($weeklyComparison, 1) }}</span>
+                        @else
+                            <span class="text-sm font-normal opacity-50">{{ number_format($weeklyComparison, 1) }}</span>
+                        @endif
+                    </span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="font-light w-40">Per maand</div>
+                <div class="font-bold flex gap-4 items-center">
+                    {{ number_format($averagePerMonth, 2) }}
+                    <span>
+                    @if ($monthlyComparison > 0)
+                            <span class="text-sm text-primary-500 font-normal">+{{ number_format($monthlyComparison, 1) }}</span>
+                        @else
+                            <span class="text-sm font-normal opacity-50">{{ number_format($monthlyComparison, 1) }}</span>
+                        @endif
+                    </span>
+                </div>
+            </div>
+{{--            <div class="flex items-center gap-2">--}}
+{{--                <div class="text-[#888] font-light">Per jaar</div>--}}
+{{--                <div class="font-bold">--}}
+{{--                    {{ round($blessingCount / now()->year, 2) }}--}}
+{{--                </div>--}}
+{{--            </div>--}}
+        </div>
+
+        <h2 class="text-2xl font-bold">Meest gezegende dag van de week</h2>
+
+        <div class="text-lg font-light">
+            {{ ucfirst(now()->create($mostBlessedDay)->dayName) }}
+        </div>
 
     </div>
 

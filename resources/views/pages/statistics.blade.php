@@ -3,6 +3,7 @@
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use App\Models\Blessing;
+use OpenAI\Laravel\Facades\OpenAI;
 
 name('statistics');
 
@@ -28,7 +29,32 @@ state(
 
         return $values;
     },
-)
+    insight: null,
+);
+
+
+$generateInsight = function() {
+
+    dd(Blessing::all()->pluck('description')->implode(". \n"));
+
+    $result = OpenAI::chat()->create([
+        'model' => 'gpt-4',
+        'messages' => [
+            [
+                'role' => 'system',
+                'content' => 'Give me a gist in the form of a single insight about the data. What is most prominent? Be as specific as possible and keep it short, no need to say the insights is.',
+            ],
+            [
+                'role' => 'user',
+                'content' => Blessing::all()->pluck('description')->implode(". \n"),
+            ]
+        ]
+    ]);
+
+    dd($result);
+
+    $this->insight = $result['choices'][0]['text'];
+}
 
 ?>
 
@@ -77,6 +103,14 @@ $monthlyComparison = $thisMonthBlessings - $lastMonthBlessings;
 <x-layouts.app class="max-w-4xl mx-auto">
 
     <div class="w-full flex flex-col gap-6 bg-white rounded-lg p-4 pb-8">
+
+        @volt
+        <button wire:click="generateInsight" wire:loading.attr="opacity-50">Genereer inzicht</button>
+
+        @if ($insight)
+            {{ $insight }}
+        @endif
+        @endvolt
 
         <h1 class="text-5xl font-bold mb-4">Statistieken</h1>
 

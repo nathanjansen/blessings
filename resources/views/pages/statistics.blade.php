@@ -217,12 +217,6 @@ $monthlyComparison = $thisMonthBlessings - $lastMonthBlessings;
                     </span>
                 </div>
             </div>
-{{--            <div class="flex items-center gap-2">--}}
-{{--                <div class="text-[#888] font-light">Per jaar</div>--}}
-{{--                <div class="font-bold">--}}
-{{--                    {{ round($blessingCount / now()->year, 2) }}--}}
-{{--                </div>--}}
-{{--            </div>--}}
         </div>
 
         <h2 class="text-2xl font-bold">Meest gezegende dag van de week</h2>

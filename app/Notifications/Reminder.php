@@ -37,6 +37,7 @@ class Reminder extends Notification
         $verse = Verse::today();
 
         return (new MailMessage)
+            ->subject('Waar mag jij vandaag dankbaar voor zijn?')
             ->greeting("Hej $notifiable->name!")
             ->line('Sta je ook vandaag (weer) even stil bij je zegeningen. Waar mag jij vandaag dankbaar voor zijn?')
             ->action('Vul je dankpunt(en) in', config('app.url'))

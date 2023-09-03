@@ -36,8 +36,22 @@ class Reminder extends Notification
     {
         $verse = Verse::today();
 
+        $subjects = [
+            'Waar mag jij vandaag dankbaar voor zijn?',
+            'Koester je dagelijkse dankbaarheid?',
+            'Geeft dankbaar zijn je vreugde?',
+            'Schrijf je dagelijkse vreugde op?',
+            'Voedt dankbaarheid je positiviteit?',
+            'Vang je geluk door dankbaarheid?',
+            'Is dankbaar zijn als innerlijke straling?',
+            'Ben je elke dag voor iets dankbaar?',
+            'Is dankbaarheid jouw gewoonte?',
+            'Groei je door dankbaarheid?',
+            'Verrijkt dankbaarheid je leven?',
+        ];
+
         return (new MailMessage)
-            ->subject('Waar mag jij vandaag dankbaar voor zijn?')
+            ->subject($subjects[rand(0, 10)])
             ->greeting("Hej $notifiable->name!")
             ->line('Sta je ook vandaag (weer) even stil bij je zegeningen. Waar mag jij vandaag dankbaar voor zijn?')
             ->action('Vul je dankpunt(en) in', config('app.url'))

@@ -14,7 +14,7 @@ use Livewire\Component;
  * @property Carbon $carbonDate
  * @property User $user
  */
-class BlessingIndex extends Component
+class Home extends Component
 {
     #[Url(history: true, keep: true)]
     public string $date;
@@ -34,14 +34,20 @@ class BlessingIndex extends Component
     #[Computed]
     public function user(): User
     {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return auth()->user();
     }
 
     function nextDay()
     {
-        if (! $this->hasNextDay()) return;
+        if (!$this->hasNextDay()) return;
 
         $this->date = $this->carbonDate->addDay()->format('Y-m-d');
+    }
+
+    function hasNextDay()
+    {
+        return $this->carbonDate < now()->subDay();
     }
 
     function previousDay()
@@ -61,17 +67,12 @@ class BlessingIndex extends Component
         $blessing->delete();
     }
 
-    function hasNextDay()
-    {
-        return $this->carbonDate < now()->subDay();
-    }
-
     public function render()
     {
-        return view('livewire.blessing-index', [
+        return view('livewire.index', [
             'carbonDate' => $this->carbonDate,
             'blessingCount' => Blessing::count(),
-            'blessings' => Blessing::getDate($this->date)->sortDesc(),
+            'blessings' => Blessing::getDate($this->date),
         ]);
     }
 }

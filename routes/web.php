@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', \App\Livewire\Web\BlessingIndex::class)
+Route::get('/', \App\Livewire\Home::class)
     ->middleware(['web', 'auth'])
     ->name('index');
 

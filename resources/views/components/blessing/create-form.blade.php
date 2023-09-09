@@ -5,7 +5,7 @@
             x-ref="description"
             wire:model="description"
             placeholder="Ik ben dankbaar voor..."
-            class="w-full focus:outline-none animate-pulse {{ $inputClass ?? null }}"
+            class="w-full rounded focus:outline-none {{ $inputClass ?? null }}"
             x-on:focusout="$wire.addBlessing()"
         >
     </label>

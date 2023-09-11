@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "alpinejs-swipe": "^1.0.2",
+        "hammerjs": "^2.0.8",
         "mjml": "^4.14.1",
         "quill": "^1.3.6",
         "web-push": "^3.6.4"

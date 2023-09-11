@@ -1,4 +1,4 @@
-<form wire:submit="addBlessing" {{ $attributes }}>
+<form wire:submit="addBlessing" {{ $attributes }} x-init="$refs.description.focus()">
     <label class="w-full">
         <input
             type="text"

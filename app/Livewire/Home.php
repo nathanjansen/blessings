@@ -7,6 +7,7 @@ use App\Models\Blessing;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -60,16 +61,21 @@ class Home extends Component
         $creator(user: $this->user, description: $this->description, date: $this->date);
 
         $this->description = '';
+
+        $this->dispatch('blessing-created');
     }
 
-    function remove(Blessing $blessing)
+    function remove(?Blessing $blessing = null)
     {
+        if (! $blessing) return;
+
         $blessing->delete();
     }
 
+    #[Layout('components.layouts.page')]
     public function render()
     {
-        return view('livewire.index', [
+        return view('livewire.home', [
             'carbonDate' => $this->carbonDate,
             'blessingCount' => Blessing::count(),
             'blessings' => Blessing::getDate($this->date),

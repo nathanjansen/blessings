@@ -5,7 +5,7 @@
             x-ref="description"
             wire:model="description"
             placeholder="Ik ben dankbaar voor..."
-            class="w-full rounded focus:outline-none font-[16px] {{ $inputClass ?? null }}"
+            class="w-full rounded focus:outline-none !text-[16px] {{ $inputClass ?? null }}"
             x-on:focusout="$wire.addBlessing()"
         >
     </label>

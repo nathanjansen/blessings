@@ -25,7 +25,6 @@
 © {{ date('Y') }} {{ config('app.name') }}
 <p>Voorstraat 14 · 9291CK · Kollum · Nederland</p>
 <p>info@blessingsapp.nl</p>
-</p>
 </x-mail::footer>
 </x-slot:footer>
 </x-mail::layout>

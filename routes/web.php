@@ -18,6 +18,9 @@ Route::get('/', \App\Livewire\Home::class)
     ->middleware(['web', 'auth'])
     ->name('index');
 
+Route::get('/unsubscribe-notification/{list}/{user}', \App\Http\Controllers\UnsubscribeNotification::class)
+    ->name('unsubscribe-notification');
+
 Route::get('/mail', function() {
     $user = \App\Models\User::query()->first();
 

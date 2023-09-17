@@ -7,6 +7,7 @@ use App\Models\Verse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HtmlString;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
@@ -60,6 +61,11 @@ class Reminder extends Notification
             'Herbeleef een moment van vandaag?',
         ];
 
+        $unsubscribeLink = Url::signedRoute('unsubscribe-notification', [
+            'list' => 'daily_reminder',
+            'user' => $notifiable->id,
+        ]);
+
         return (new MailMessage)
             ->subject($subjects[rand(0, count($subjects) - 1)])
             ->greeting("Hej $notifiable->name!")
@@ -67,6 +73,7 @@ class Reminder extends Notification
             ->action('Vul je dankpunt(en) in', config('app.url'))
             ->line(new HtmlString('<p class="verse">' . $verse?->text .'</p>'))
             ->line(new HtmlString('<p class="verse-number">' . $verse?->verse .'</p>'))
+            ->line(new HtmlString('<p><a href="' . $unsubscribeLink . '">Uitschrijven</a></p>'))
             ->salutation(' ');
     }
 

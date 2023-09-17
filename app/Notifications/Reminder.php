@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use App\Models\Verse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -29,7 +30,18 @@ class Reminder extends Notification
      */
     public function via(object $notifiable): array
     {
+        if ($this->isOptout($notifiable)) {
+            return [];
+        }
+
         return ['database', 'mail', WebPushChannel::class];
+    }
+
+    public function isOptout(object $notifiable)
+    {
+        if (! $notifiable instanceof User) return true;
+
+        return ! ($notifiable->notification_subscriptions['daily_reminder'] ?? true);
     }
 
     public function toMail(object $notifiable, $notification = null): MailMessage
@@ -49,7 +61,7 @@ class Reminder extends Notification
         ];
 
         return (new MailMessage)
-            ->subject($subjects[rand(0, 10)])
+            ->subject($subjects[rand(0, count($subjects) - 1)])
             ->greeting("Hej $notifiable->name!")
             ->line('Sta je ook vandaag (weer) even stil bij je zegeningen. Waar mag jij vandaag dankbaar voor zijn?')
             ->action('Vul je dankpunt(en) in', config('app.url'))

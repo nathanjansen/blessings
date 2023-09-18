@@ -6,7 +6,7 @@
     </x-slot:head>
 
     <div
-        class="flex flex-grow flex-col justify-end h-full w-full md:divide-x md:py-12 relative md:max-w-4xl mx-auto"
+        class="flex flex-grow flex-col justify-end h-full w-full md:py-12 relative md:max-w-4xl mx-auto"
         x-on:blessing-created.window="$nextTick(() => scrollIntoView())"
         x-data="{
             init() {
@@ -25,8 +25,11 @@
             <x-blessing.list
                 wire:key="{{ $carbonDate }}"
                 :blessings="$blessings"
-                class="flex flex-1 flex-col pt-4 "
-                item-class="flex text-sm gap-3 px-6 justify-between items-center group transition transition-all w-full"
+                class="flex flex-1 flex-col pt-4 overflow-hidden"
+                item-class="flex text-sm gap-3 pl-6 py-1 justify-between items-center group transition transition-all w-full"
+                description-class="pb-2"
+                icon-class="mb-2"
+                actions-class="mb-2"
             />
         </div>
 
@@ -42,11 +45,12 @@
 
         <x-blessing.create-form
             class="w-full flex gap-0 z-10 w-full px-6 py-4 bg-gradient-to-t from-[#F3F3F3] via-[#F3F3F3]"
-            input-class="py-2 px-4 placeholder:italic placeholder:font-light text-sm drop-shadow-2xl"
+            label-class="bg-white rounded-2xl overflow-hidden border border-[#AEAEAE] flex gap-2 pr-1"
+            input-class="py-2 px-4 placeholder:italic placeholder:font-light text-sm"
         />
 
-        <div class="bg-white">
-            <x-blessing.day-switcher class="flex gap-2 w-full justify-between items-center p-6 max-w-xs mx-auto h-20  w-full" />
+        <div class="mb-4 w-full" x-transition>
+            <x-blessing.day-switcher class="flex gap-2 w-full justify-between items-center p-6 mx-auto md:max-w-xs h-20  w-full" />
         </div>
     </div>
 

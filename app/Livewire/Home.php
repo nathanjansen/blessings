@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Actions\CreateBlessing;
+use App\Actions\SaveBlessing;
 use App\Models\Blessing;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -20,6 +20,7 @@ class Home extends Component
     #[Url(history: true, keep: true)]
     public string $date;
     public string $description = '';
+    public ?int $editing = null;
 
     public function mount()
     {
@@ -56,11 +57,20 @@ class Home extends Component
         $this->date = $this->carbonDate->subDay()->format('Y-m-d');
     }
 
-    function addBlessing(CreateBlessing $creator)
+    function addBlessing(SaveBlessing $saver)
     {
-        $creator(user: $this->user, description: $this->description, date: $this->date);
+        if (empty($this->description)) {
+            return;
+        }
+
+        $blessing = $this->editing ? Blessing::find($this->editing) : new Blessing();
+        $blessing->description = $this->description;
+        $blessing->date = $this->date;
+
+        $saver(user: $this->user, blessing: $blessing);
 
         $this->description = '';
+        $this->editing = null;
 
         $this->dispatch('blessing-created');
     }
@@ -70,6 +80,14 @@ class Home extends Component
         if (! $blessing) return;
 
         $blessing->delete();
+    }
+
+    function edit(?Blessing $blessing = null)
+    {
+        if (! $blessing) return;
+
+        $this->description = $blessing->description;
+        $this->editing = $blessing->id;
     }
 
     #[Layout('components.layouts.page')]

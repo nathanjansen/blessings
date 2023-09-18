@@ -40,8 +40,15 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-0 mt-4">
+            <div class="p-4 sm:p-0 mt-4 flex justify-between items-center">
                 <small class="text-gray-400 text-xs">v{{ config('app.version') }}</small>
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="text-primary-500 underline">
+                        {{ __('Logout') }}
+                    </button>
+                </form>
             </div>
         </div>
 

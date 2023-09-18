@@ -44,9 +44,9 @@
     }"
     x-ref="blessingItem"
 >
-    <x-icons.face-smile class="w-4 h-4 relative -top-[4px] shrink-0 text-primary-600 mt-1 {{ $iconClass ?? null }}" />
+    <x-icons.face-smile class="w-4 h-4 relative shrink-0 text-primary-600 {{ $iconClass ?? null }}" />
 
-    <div class="border-[#EEE] border-b flex justify-between w-full gap-2 items-start w-full py-1.5">
+    <div class="border-[#EEE] border-b flex justify-between w-full items-start w-full">
         <div class="{{ $descriptionClass ?? null }}">
             {{ $blessing->description }}
         </div>
@@ -65,8 +65,11 @@
 
     <div
         x-ref="removeBlessing"
-        class="absolute md:hidden inset-y-0 right-0 transform translate-x-full transition-transform duration-300 flex items-center">
-        <button wire:click="remove({{ $blessing->id }})" class="bg-red-500 text-white p-2 rounded-l">
+        class="{{ $actionsClass ?? null }} absolute md:hidden inset-y-0 right-0 transform translate-x-full transition-transform duration-300 flex items-center">
+        <button wire:click="edit({{ $blessing->id }})" class="bg-[#72A3BF] text-white p-2">
+            Wijzig
+        </button>
+        <button wire:click="remove({{ $blessing->id }})" class="bg-[#E0422C] text-white p-2">
             Verwijder
         </button>
     </div>

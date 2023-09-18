@@ -1,6 +1,6 @@
 <?php
 
-use App\Actions\CreateBlessing;
+use App\Actions\SaveBlessing;
 use App\Livewire\BlessingIndex;
 use App\Models\Blessing;
 use App\Models\User;
@@ -36,7 +36,7 @@ it('can remove blessing', function () {
 
     actingAs($user);
 
-    $blessing = app(CreateBlessing::class)(
+    $blessing = app(SaveBlessing::class)(
         $user,
         'My first blessing',
         now()->format('Y-m-d')
@@ -57,7 +57,7 @@ it('can go to next day', function () {
 
     actingAs($user);
 
-    $blessing = app(CreateBlessing::class)(
+    $blessing = app(SaveBlessing::class)(
         $user,
         'My first blessing',
         now()->format('Y-m-d')

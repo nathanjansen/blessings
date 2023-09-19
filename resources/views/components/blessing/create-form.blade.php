@@ -7,6 +7,7 @@
             placeholder="Ik ben dankbaar voor..."
             class="w-full rounded focus:outline-none !text-[16px] {{ $inputClass ?? null }}"
             x-on:focusout="$wire.addBlessing(); $wire.formActive = false"
+            id="create-form-description"
         >
         <button type="submit">
             <svg width="32" height="32" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">

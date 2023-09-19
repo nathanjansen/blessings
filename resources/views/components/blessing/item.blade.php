@@ -66,7 +66,11 @@
     <div
         x-ref="removeBlessing"
         class="{{ $actionsClass ?? null }} absolute md:hidden inset-y-0 right-0 transform translate-x-full transition-transform duration-300 flex items-center">
-        <button wire:click="edit({{ $blessing->id }})" class="bg-[#72A3BF] text-white p-2">
+        <button
+            wire:click="edit({{ $blessing->id }})"
+            x-on:click="document.getElementById('create-form-description').focus()"
+            class="bg-[#72A3BF] text-white p-2"
+        >
             Wijzig
         </button>
         <button wire:click="remove({{ $blessing->id }})" class="bg-[#E0422C] text-white p-2">

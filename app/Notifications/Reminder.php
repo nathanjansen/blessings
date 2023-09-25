@@ -50,15 +50,13 @@ class Reminder extends Notification
         $verse = Verse::today();
 
         $subjects = [
-            'Wat liet je vandaag glimlachen?',
-            'Wie beïnvloedde je dag positief?',
-            'Ervaarde je vandaag rust?',
-            'Welk gebaar maakte jouw dag?',
-            'Wat inspireerde je vandaag?',
-            'Jouw overwinning vandaag?',
-            'Beste herinnering vandaag?',
-            'Wat verraste je vandaag?',
-            'Herbeleef een moment van vandaag?',
+            'Welke blessings wil jij onthouden?',
+            'Wat maakte jouw dag?',
+            'Vergeet je blessings niet!',
+            'Eindig je dag met blessings',
+            'Neem tijd voor je blessings',
+            'Wie of wat maakte jou blij?',
+            'Tel je zegeningen',
         ];
 
         $unsubscribeLink = Url::signedRoute('unsubscribe-notification', [
